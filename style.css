@@ -210,9 +210,26 @@ header img{height:40px}
 	box-shadow:0 8px 24px rgba(6,22,34,0.06);
 }
 
+/* Info section icons */
+.info-icon{
+	text-align:center;
+	font-size:36px;
+	color:var(--accent-dark);
+	margin-bottom:10px;
+}
+
+.info-icon i{
+	display:inline-block;
+}
+
 .info-card h2{
 	margin:0 0 12px 0;
 	color:var(--accent-dark);
+}
+
+/* Add a little space around the Learn More buttons */
+.info-card .btn{
+	margin:6px 0 10px 0;
 }
 
 /* Subscription form section */
