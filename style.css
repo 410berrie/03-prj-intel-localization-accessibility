@@ -1,0 +1,232 @@
+/* Simple styles + horizontal flexbox timeline */
+:root{
+	--accent-light:#00C7FD;
+	--accent-dark:#0068B5;
+	--bg:#f6fbff;
+	--text:#0b2135;
+	--muted:#5b6b78;
+}
+
+*{box-sizing:border-box}
+html{
+	/* Enable smooth scrolling for anchor links */
+	scroll-behavior:smooth;
+	/* Add padding so content doesn't hide behind the header */
+	scroll-padding-top:60px;
+	height:100%;
+}
+body{height:100%;margin:0}
+body{
+	font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+	background:var(--bg);
+	color:var(--text);
+	-webkit-font-smoothing:antialiased;
+}
+
+/* Header / site basics */
+header{
+	background:#0068B5;
+	border-bottom:1px solid rgba(11,33,53,0.06);
+	/* center content horizontally */
+	display:flex;
+	justify-content:center;
+	padding:16px;
+}
+
+/* Container for the logo to keep it centered and properly sized */
+.header-logo-container{
+	display:flex;
+	align-items:center;
+	max-width:900px;
+	width:100%;
+}
+
+header img{height:40px}
+
+/* New: Hero section (simple, beginner-friendly, uses flexbox) */
+.hero{
+	/* subtle blue gradient to echo Intel branding */
+	background: linear-gradient(180deg, rgba(0,199,253,0.10), rgba(0,104,181,0.04));
+	padding:44px 16px;
+	text-align:center;
+}
+.hero-inner{
+	max-width:900px;
+	margin:0 auto;
+	padding:8px 12px;
+}
+.hero h1{
+	margin:0 0 8px 0;
+	font-size:36px;
+	color:var(--accent-dark);
+}
+.hero-sub{
+	margin:0 0 16px 0;
+	color:var(--muted);
+	font-size:16px;
+	line-height:1.4;
+}
+
+/* Simple button style for CTA */
+.hero-cta{
+	display:inline-block;
+	background:linear-gradient(90deg,var(--accent-light),var(--accent-dark));
+	color:white;
+	text-decoration:none;
+	padding:10px 18px;
+	border-radius:8px;
+	font-weight:600;
+	box-shadow:0 6px 16px rgba(6,22,34,0.07);
+	transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.hero-cta:hover,
+.hero-cta:focus{
+	transform: translateY(-4px);
+	box-shadow:0 12px 28px rgba(6,22,34,0.10);
+}
+
+/* Timeline container */
+#timeline{padding:28px 12px;margin-top:12px}
+.timeline{
+	display:flex;
+	gap:20px;
+	overflow-x:auto;
+	padding:12px;
+	-webkit-overflow-scrolling:touch;
+	scroll-snap-type:x mandatory;
+}
+
+/* Cards */
+.card{
+	/* make three cards fit the visible width: (100% - gap*2) / 3 */
+	flex:0 0 calc((100% - 40px) / 3);
+	background:white;
+	border-radius:12px;
+	padding:18px;
+	box-shadow:0 8px 24px rgba(6,22,34,0.06);
+	scroll-snap-align:start;
+	scroll-margin-left:12px;
+
+	/* Added: enable smooth movement and ensure card can rise above siblings */
+	position:relative; /* create stacking context for z-index */
+	transition: transform 180ms ease, box-shadow 180ms ease;
+	will-change: transform, box-shadow;
+}
+
+.card h2{
+	/* Position heading absolutely over the image */
+	position:absolute;
+	top:18px;
+	left:18px;
+	right:18px;
+	margin:0;
+	color:white;
+	font-size:20px;
+	/* Add semi-transparent dark blue background for readability */
+	background:rgba(0, 104, 181, 0.75);
+	padding:8px 12px;
+	border-radius:6px;
+	/* Initially hidden - show on hover/focus */
+	opacity:0;
+	transition:opacity 180ms ease-in;
+	z-index:10;
+}
+
+/* Move the card up slightly on hover or when focused (keyboard or focus within),
+   and make the shadow stronger to look like a drop-shadow. */
+.card:hover,
+.card:focus-within,
+.card:focus-visible{
+	transform: translateY(-8px);
+	box-shadow: 0 18px 40px rgba(6,22,34,0.12);
+	z-index: 5;
+}
+
+/* Show the h2 heading when card is hovered or focused */
+.card:hover h2,
+.card:focus-within h2,
+.card:focus-visible h2{
+	opacity:1;
+}
+
+.card h3{margin:6px 0 12px 0;font-size:16px;color:var(--muted)}
+.card p{margin:0;color:var(--text);line-height:1.5}
+
+/* Card image */
+.card-img{
+	display:block;
+	width:100%;
+	height:140px;
+	object-fit:cover;
+	border-radius:8px;
+	margin-bottom:12px;
+	/* Position relative so h2 can be positioned absolutely within the card */
+	position:relative;
+}
+
+/* Visual hint: subtle fade at the edges to indicate scroll (desktop) */
+.timeline::before, .timeline::after{
+	content:'';flex:0 0 12px;pointer-events:none
+}
+
+/* Thin scrollbar for non-mobile */
+.timeline::-webkit-scrollbar{height:10px}
+.timeline::-webkit-scrollbar-thumb{background:linear-gradient(90deg,var(--accent-light),var(--accent-dark));border-radius:6px}
+
+@media (max-width:900px){
+	/* show 2 cards on medium screens */
+	.card{flex:0 0 calc((100% - 20px) / 2);}
+}
+
+@media (max-width:600px){
+	/* Mobile: stack cards vertically and prevent horizontal overflow */
+	.timeline{
+		display:flex;
+		flex-direction:column;
+		overflow-x:visible; /* no horizontal scrolling on mobile */
+		scroll-snap-type:none;
+		gap:14px;
+		padding:10px;
+	}
+
+	.card{
+		flex:0 0 auto;
+		width:100%;
+		max-width:100%;
+	}
+
+	.card-img{height:auto;min-height:140px}
+}
+
+/* Footer navigation section */
+.footer-nav{
+	text-align:center;
+	padding:24px 16px;
+	background:white;
+	border-top:1px solid rgba(11,33,53,0.06);
+}
+
+.footer-nav p{
+	margin:0 0 12px 0;
+	color:var(--muted);
+	font-size:14px;
+}
+
+/* Back to Top link */
+.back-to-top{
+	display:inline-block;
+	color:var(--accent-dark);
+	text-decoration:none;
+	font-weight:600;
+	padding:8px 16px;
+	border:2px solid var(--accent-dark);
+	border-radius:6px;
+	transition: background 160ms ease, color 160ms ease;
+}
+
+.back-to-top:hover,
+.back-to-top:focus{
+	background:var(--accent-dark);
+	color:white;
+}
+
