@@ -198,6 +198,45 @@ header img{height:40px}
 	.card-img{height:auto;min-height:140px}
 }
 
+/* 3-column info section (Bootstrap grid handles layout) */
+.info-section{
+	padding:28px 16px;
+}
+
+.info-card{
+	background:white;
+	border-radius:12px;
+	padding:18px;
+	box-shadow:0 8px 24px rgba(6,22,34,0.06);
+}
+
+.info-card h2{
+	margin:0 0 12px 0;
+	color:var(--accent-dark);
+}
+
+/* Subscription form section */
+.subscribe-section{
+	padding:18px 16px 28px 16px;
+}
+
+.subscribe-card{
+	background:white;
+	border-radius:12px;
+	padding:18px;
+	box-shadow:0 8px 24px rgba(6,22,34,0.06);
+}
+
+.subscribe-card h2{
+	margin:0 0 8px 0;
+	color:var(--accent-dark);
+}
+
+.subscribe-card p{
+	margin:0 0 12px 0;
+	color:var(--muted);
+}
+
 /* Footer navigation section */
 .footer-nav{
 	text-align:center;
